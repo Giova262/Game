@@ -13,6 +13,8 @@ Personaje::Personaje(const char* nombre,SDL_Renderer* ren) {
 	renderer = ren ;
 	personajeTextura = TexturaGenerador::cargarTextura(nombre,renderer);
 
+	pos =0;
+
 	srcRect.h = 32;
 	srcRect.w = 32;
 	srcRect.x= 0;
@@ -20,8 +22,14 @@ Personaje::Personaje(const char* nombre,SDL_Renderer* ren) {
 
 	desRect.h = 64;
 	desRect.w = 64 ;
-	desRect.x = 40 ;
-	desRect.y = 40 ;
+	desRect.x = 150 ;
+	desRect.y = 150 ;
+
+	spriteNames[0]= "arriba.png";
+	spriteNames[1]= "cuerpotierra.png";
+	spriteNames[2]= "personaje.png";
+	spriteNames[3]= "personajeleft.png";
+
 }
 
 Personaje::~Personaje() {
@@ -33,20 +41,24 @@ void Personaje::eventos(SDL_Event evento){
 	 switch(evento.key.keysym.sym){
 
 	        case SDLK_UP:
-	            desRect.y = desRect.y - 4 ;
+	        	personajeTextura = TexturaGenerador::cargarTextura("arriba.png",renderer);
+
+	           // desRect.y = desRect.y - 4 ;
 	            break;
 	        case SDLK_LEFT:
-	            desRect.x = desRect.x-4;
-	            personajeTextura = TexturaGenerador::cargarTextura("personajeleft.png",renderer);
 
+	            personajeTextura = TexturaGenerador::cargarTextura("personajeleft.png",renderer);
+	            desRect.x = desRect.x-4;
 	            break;
 	        case SDLK_RIGHT:
-	             desRect.x = desRect.x+4;
-		         personajeTextura = TexturaGenerador::cargarTextura("personaje.png",renderer);
 
+		         personajeTextura = TexturaGenerador::cargarTextura("personaje.png",renderer);
+		         desRect.x = desRect.x+4;
 	            break;
 	        case SDLK_DOWN:
-	            desRect.y = desRect.y + 4;
+	        	personajeTextura = TexturaGenerador::cargarTextura("cuerpotierra.png",renderer);
+
+	            //desRect.y = desRect.y + 4;
 	            break;
 	        default:
 	            break;
@@ -54,7 +66,9 @@ void Personaje::eventos(SDL_Event evento){
 }
 
 void Personaje:: actualizar(){
-
+	personajeTextura = TexturaGenerador::cargarTextura(spriteNames[pos],renderer);
+	pos++;
+	if(pos == 4) pos =0 ;
 }
 
 void Personaje::renderizar(){

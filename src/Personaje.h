@@ -21,9 +21,12 @@ public:
 	void renderizar();
 	void eventos(SDL_Event evento);
 
+
 private:
 	int posX;
 	int posY;
+	int pos;
+	char* spriteNames[4];
 	SDL_Texture* personajeTextura;
 	SDL_Rect srcRect ,desRect;
 	SDL_Renderer* renderer;

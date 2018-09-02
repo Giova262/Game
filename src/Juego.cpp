@@ -5,6 +5,7 @@
 SDL_Rect srcR,desR;
 
 Personaje* Gio;
+Uint32 frameStart , frameTiempo;
 
 Juego::Juego(){ enEjecucion=true;}
 
@@ -19,10 +20,10 @@ void Juego::juegoInicializacion(){
         if(window){
             std::cout<<"Se creo la ventana"<<std::endl;
         }
-        renderer = SDL_CreateRenderer(window,-1,0);
+        renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
         if(renderer){
             std::cout<<"Se creo el renderer"<<std::endl;
-            SDL_SetRenderDrawColor(renderer,255,0,0,200);
+            SDL_SetRenderDrawColor(renderer,255,255,255,200);
         }
 
         enEjecucion=true;
@@ -31,42 +32,27 @@ void Juego::juegoInicializacion(){
         enEjecucion=false;
     }
 
-    /*SDL_Surface* superficieTemp = IMG_Load("personaje.png");
-    personajeTextura = SDL_CreateTextureFromSurface(renderer,superficieTemp);
-    SDL_FreeSurface(superficieTemp);
-    desR.h = 64;
-    desR.w = 64 ;
-    desR.x = 40;
-    desR.y = 40;*/
-
     Gio = new Personaje("personaje.png",renderer);
 }
 
 void Juego::eventosManejo(){
-    SDL_Event evento;
-    SDL_PollEvent(&evento);
 
-    if(evento.type == SDL_QUIT){ enEjecucion = false ;}
-    Gio->eventos(evento);
-    /*switch(evento.key.keysym.sym){
-        case SDLK_ESCAPE:
-            enEjecucion= false;
-            break;
-        case SDLK_UP:
-            desR.y = desR.y - 4 ;
-            break;
-        case SDLK_LEFT:
-            desR.x = desR.x-4;
-            break;
-        case SDLK_RIGHT:
-             desR.x = desR.x+4;
-            break;
-        case SDLK_DOWN:
-            desR.y = desR.y + 4;
-            break;
-        default:
-            break;
-    }*/
+	SDL_Event evento;
+
+	frameStart = SDL_GetTicks();
+
+    while(SDL_PollEvent(&evento)){
+    	if(evento.type == SDL_QUIT){ enEjecucion = false ;}
+    	Gio->eventos(evento);
+    }
+
+    Gio->actualizar();
+
+    frameTiempo = SDL_GetTicks() - frameStart;
+    if( 250 > frameTiempo){
+            SDL_Delay( 250- frameTiempo );
+    }
+
 }
 
 void Juego::actualizar(){
