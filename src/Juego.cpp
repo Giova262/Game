@@ -39,11 +39,13 @@ void Juego::juegoInicializacion(){
 
 void Juego::eventosManejo(){
 
+
 	SDL_Event evento;
 
 	frameStart++;
 
     while(SDL_PollEvent(&evento)){
+
     	if(evento.type == SDL_QUIT){ enEjecucion = false ;}
     	Gio->eventos(evento);
     	frameStart = 0;
@@ -53,12 +55,6 @@ void Juego::eventosManejo(){
     	Gio->actualizar();
     	SDL_Delay(100);
     }
-
-
-
-
-
-
 
 }
 
@@ -72,7 +68,6 @@ void Juego::renderizar(){
     SDL_RenderClear(renderer);
     //Copy a portion of the texture to the current rendering target.
     Gio->renderizar();
-    // SDL_RenderCopy(renderer,personajeTextura,NULL,&desR);
     //ACTUALIZA LA PANTALLA CON EL RENDER REALIZADO
     SDL_RenderPresent(renderer);
 }
