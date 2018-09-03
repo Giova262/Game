@@ -25,10 +25,10 @@ Personaje::Personaje(const char* nombre,SDL_Renderer* ren) {
 	desRect.x = 150 ;
 	desRect.y = 150 ;
 
-	spriteNames[0]= "arriba.png";
-	spriteNames[1]= "cuerpotierra.png";
-	spriteNames[2]= "personaje.png";
-	spriteNames[3]= "personajeleft.png";
+	spriteNames[0]= "4.png";
+	spriteNames[1]= "5.png";
+	spriteNames[2]= "6.png";
+	spriteNames[3]= "5.png";
 
 }
 
@@ -40,25 +40,24 @@ void Personaje::eventos(SDL_Event evento){
 
 	 switch(evento.key.keysym.sym){
 
-	        case SDLK_UP:
-	        	personajeTextura = TexturaGenerador::cargarTextura("arriba.png",renderer);
+	        case SDLK_SPACE:
+	        	personajeTextura = TexturaGenerador::cargarTextura("7.png",renderer);
 
-	           // desRect.y = desRect.y - 4 ;
+	        	desRect.y = desRect.y -4 ;
 	            break;
 	        case SDLK_LEFT:
 
-	            personajeTextura = TexturaGenerador::cargarTextura("personajeleft.png",renderer);
-	            desRect.x = desRect.x-4;
+	            personajeTextura = TexturaGenerador::cargarTextura("1.png",renderer);
+	            desRect.x = desRect.x-3;
 	            break;
 	        case SDLK_RIGHT:
 
-		         personajeTextura = TexturaGenerador::cargarTextura("personaje.png",renderer);
-		         desRect.x = desRect.x+4;
+		         personajeTextura = TexturaGenerador::cargarTextura("1.png",renderer);
+		         desRect.x = desRect.x+3;
 	            break;
 	        case SDLK_DOWN:
-	        	personajeTextura = TexturaGenerador::cargarTextura("cuerpotierra.png",renderer);
-
-	            //desRect.y = desRect.y + 4;
+	        	personajeTextura = TexturaGenerador::cargarTextura("2.png",renderer);
+	            desRect.y = desRect.y + 4;
 	            break;
 	        default:
 	            break;
@@ -73,4 +72,14 @@ void Personaje:: actualizar(){
 
 void Personaje::renderizar(){
 	SDL_RenderCopy(renderer,personajeTextura,NULL,&desRect);
+}
+
+void Personaje::limpiar(){
+
+	spriteNames[0] = NULL;
+	spriteNames[1] = NULL;
+	spriteNames[2] = NULL;
+	spriteNames[3] = NULL;
+	SDL_DestroyTexture(personajeTextura);
+
 }

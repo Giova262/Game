@@ -5,7 +5,7 @@
 SDL_Rect srcR,desR;
 
 Personaje* Gio;
-Uint32 frameStart , frameTiempo;
+Uint32 frameStart=0 , frameTiempo , frameEspera;
 
 Juego::Juego(){ enEjecucion=true;}
 
@@ -20,7 +20,9 @@ void Juego::juegoInicializacion(){
         if(window){
             std::cout<<"Se creo la ventana"<<std::endl;
         }
-        renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+        //SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
+        renderer = SDL_CreateRenderer(window,-1,0);
         if(renderer){
             std::cout<<"Se creo el renderer"<<std::endl;
             SDL_SetRenderDrawColor(renderer,255,255,255,200);
@@ -32,26 +34,31 @@ void Juego::juegoInicializacion(){
         enEjecucion=false;
     }
 
-    Gio = new Personaje("personaje.png",renderer);
+    Gio = new Personaje("1.png",renderer);
 }
 
 void Juego::eventosManejo(){
 
 	SDL_Event evento;
 
-	frameStart = SDL_GetTicks();
+	frameStart++;
 
     while(SDL_PollEvent(&evento)){
     	if(evento.type == SDL_QUIT){ enEjecucion = false ;}
     	Gio->eventos(evento);
+    	frameStart = 0;
+   }
+
+    if(frameStart > 50) {
+    	Gio->actualizar();
+    	SDL_Delay(100);
     }
 
-    Gio->actualizar();
 
-    frameTiempo = SDL_GetTicks() - frameStart;
-    if( 250 > frameTiempo){
-            SDL_Delay( 250- frameTiempo );
-    }
+
+
+
+
 
 }
 
@@ -71,6 +78,7 @@ void Juego::renderizar(){
 }
 
 void Juego:: limpiar(){
+	Gio-> limpiar();
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();

@@ -20,6 +20,7 @@ public:
 	void actualizar();
 	void renderizar();
 	void eventos(SDL_Event evento);
+	void limpiar();
 
 
 private:
