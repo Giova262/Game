@@ -14,6 +14,7 @@ Personaje::Personaje(const char* nombre,SDL_Renderer* ren) {
 	personajeTextura = TexturaGenerador::cargarTextura(nombre,renderer);
 
 	pos =0;
+	posCaminando=0;
 	rebote = true;
 
 	srcRect.h = 32;
@@ -26,10 +27,16 @@ Personaje::Personaje(const char* nombre,SDL_Renderer* ren) {
 	desRect.x = 200 ;
 	desRect.y = 200 ;
 
-	spriteNames[0]= "4.png";
-	spriteNames[1]= "5.png";
-	spriteNames[2]= "6.png";
-	spriteNames[3]= "5.png";
+	spriteNames[0]= "imagenes/espera1.png";
+	spriteNames[1]= "imagenes/espera2.png";
+	spriteNames[2]= "imagenes/espera3.png";
+	spriteNames[3]= "imagenes/espera2.png";
+
+	spriteCaminando[0]= "imagenes/caminando1.png";
+	spriteCaminando[1]= "imagenes/caminando2.png";
+	spriteCaminando[2]= "imagenes/caminando3.png";
+	spriteCaminando[3]= "imagenes/caminando4.png";
+
 
 }
 
@@ -55,11 +62,8 @@ void Personaje::eventos(SDL_Event evento){
 
 	        case SDLK_LEFT:
 
-	            personajeTextura = TexturaGenerador::cargarTextura("1.png",renderer);
-	            desRect.x = desRect.x-3;
-	            break;
-	        case SDLK_RIGHT:
 	        	if(rebote){
+	        			desRect.x = desRect.x -3  ;
 	        			caminando();
 	        			rebote = false;
 	        				break;
@@ -67,13 +71,33 @@ void Personaje::eventos(SDL_Event evento){
 
 	        		rebote = true ;
 	        		break;
-		        /* personajeTextura = TexturaGenerador::cargarTextura("1.png",renderer);
-		         desRect.x = desRect.x+3;
-	            break;*/
+
+	        case SDLK_RIGHT:
+	        	if(rebote){
+	        			desRect.x = desRect.x +3  ;
+	        			caminando();
+	        			rebote = false;
+	        				break;
+	        		}
+
+	        		rebote = true ;
+	        		break;
+
 	        case SDLK_DOWN:
-	        	personajeTextura = TexturaGenerador::cargarTextura("2.png",renderer);
-	            //desRect.y = desRect.y + 4;
+	        	personajeTextura = TexturaGenerador::cargarTextura("imagenes/disparobajo.png",renderer);
 	            break;
+	        case SDLK_UP:
+	        	personajeTextura = TexturaGenerador::cargarTextura("imagenes/disparoalto.png",renderer);
+	        	break;
+
+	        case SDLK_LCTRL:
+	        	 personajeTextura = TexturaGenerador::cargarTextura("imagenes/disparoagachado.png",renderer);
+	        	 break;
+
+	        case SDLK_KP_0:
+	        	 personajeTextura = TexturaGenerador::cargarTextura("imagenes/disparofrontal.png",renderer);
+	        	 break;
+
 	        default:
 	            break;
 	    }
@@ -103,7 +127,7 @@ void Personaje::saltando(){
 	for(int i=0 ; i < 15 ; i++){
 		desRect.y = desRect.y -5 ;
 		SDL_RenderClear(renderer);
-		personajeTextura = TexturaGenerador::cargarTextura("7.png",renderer);
+		personajeTextura = TexturaGenerador::cargarTextura("imagenes/salto1.png",renderer);
 		renderizar();
 		SDL_RenderPresent(renderer);
 		SDL_Delay(15);
@@ -111,27 +135,23 @@ void Personaje::saltando(){
 	for(int i=0 ; i < 14 ; i++){
 		 desRect.y = desRect.y +5 ;
 		 SDL_RenderClear(renderer);
-		 personajeTextura = TexturaGenerador::cargarTextura("8.png",renderer);
+		 personajeTextura = TexturaGenerador::cargarTextura("imagenes/salto2.png",renderer);
 		 renderizar();
 	     SDL_RenderPresent(renderer);
 		 SDL_Delay(15);
 	}
 	desRect.y = desRect.y +5 ;
 	SDL_RenderClear(renderer);
-	personajeTextura = TexturaGenerador::cargarTextura("1.png",renderer);
+	personajeTextura = TexturaGenerador::cargarTextura("imagenes/espera1.png",renderer);
 	renderizar();
 	SDL_RenderPresent(renderer);
 	SDL_Delay(30);
 }
 
 void Personaje::caminando(){
-	for(int i=0 ; i < 3 ; i++){
-			desRect.x = desRect.x +1  ;
-			SDL_RenderClear(renderer);
-			personajeTextura = TexturaGenerador::cargarTextura(spriteNames[i],renderer);
-			renderizar();
-			SDL_RenderPresent(renderer);
-			SDL_Delay(15);
-	}
+
+	personajeTextura = TexturaGenerador::cargarTextura(spriteCaminando[posCaminando],renderer);
+	posCaminando++;
+	if(posCaminando == 4) posCaminando = 0;
 
 }

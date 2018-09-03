@@ -31,10 +31,10 @@ private:
 	int posX;
 	int posY;
 	int pos;
+	int posCaminando;
 	bool rebote;
 	char* spriteNames[4];
-	char* spriteSalto[2];
-	char* spriteCaminando[2];
+	char* spriteCaminando[4];
 
 	SDL_Texture* personajeTextura;
 	SDL_Rect srcRect ,desRect;

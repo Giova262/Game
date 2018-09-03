@@ -34,7 +34,7 @@ void Juego::juegoInicializacion(){
         enEjecucion=false;
     }
 
-    Gio = new Personaje("1.png",renderer);
+    Gio = new Personaje("imagenes/espera1.png",renderer);
 }
 
 void Juego::eventosManejo(){
