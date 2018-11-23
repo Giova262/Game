@@ -20,8 +20,27 @@
 #define TAG_FONDO2 "fondo2"
 #define TAG_FONDO3 "fondo3"
 
+#define MAX_QUANTITYENEMIES_TYPE 25
+#define TAG_QUANTITYRUNNERS "quantityrunners"
+#define TAG_QUANTITYRIFLEMANS "quantityriflemans"
+#define TAG_QUANTITYSOLDIERS "quantitysoldiers"
+#define TAG_QUANTITYSNIPERS "quantitysnipers"
+#define TAG_QUANTITYGUNNERS "quantitygunners"
+#define TAG_QUANTITYSCUBASOLDIERS "quantityscubasoldiers"
+#define TAG_QUANTITYWALLTURRETS "quantitywallturrets"
+#define TAG_QUANTITYCANNONS "quantitycannons"
+#define TAG_QUANTITYFLOATERS "quantityfloaters"
+#define TAG_QUANTITYSPORES "quantityspores"
+#define TAG_QUANTITYCRAWLERS "quantitycrawlers"
+
 #define TAG_PLATAFORMAS "plataformas"
 #define TAG_PLATAFORMA "plataforma"
+
+#define TAG_ITEMS "items"
+#define TAG_ITEM "item"
+
+#define TAG_XPOS "xpos"
+#define TAG_YPOS "ypos"
 
 #define TAG_ID "id"
 #define TAG_TIPO "tipo"
